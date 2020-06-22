@@ -1,0 +1,33 @@
+CREATE DATABASE student_examination_sys
+USE student_examination_sys
+CREATE TABLE student (
+	id INT NOT NULL,
+	NAME VARCHAR(20),
+	age INT,
+	sex VARCHAR(10),
+	CHECK(sex = 'male' OR sex = 'female'),
+	PRIMARY KEY (id)
+	
+);
+INSERT INTO student VALUES (001,"zhangsan",18,"male"), (002,"lisi",20,"female");
+
+CREATE TABLE SUBJECT (
+	id INT NOT NULL,
+	SUBJECT VARCHAR(20),
+	teacher VARCHAR(20),
+	description VARCHAR(50),
+	PRIMARY KEY (id)
+);
+INSERT INTO SUBJECT VALUES (1001,"Chinese","Mr. Wang","the exam is easy"), (1002,"math","Miss Liu","the exam is difficult");
+
+CREATE TABLE score (
+	id INT NOT NULL AUTO_INCREMENT,
+	student_id INT,
+	subject_id INT,
+	score INT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(student_id) REFERENCES student(id),
+	FOREIGN KEY(subject_id) REFERENCES SUBJECT(id)
+);
+ALTER TABLE score MODIFY COLUMN score DOUBLE; 
+INSERT INTO score (student_id,subject_id,score) VALUES (001,1001,80),(002,1002,60),(001,1001,70),(002,1002,60.5);
